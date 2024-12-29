@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      enabled: true #Habilita la integracion con Spring Cloud Config
+      uri: http://localhost:8888
