@@ -43,6 +43,7 @@ public class ReservacionController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(usuarioService.findAll());
     }
+
     @ApiResponse(responseCode = HttpStatusCodes.OK,description = "Listar Habitaciones")
     @GetMapping("habitaciones")
     public ResponseEntity<List<HabitacionDto>> findAllHabitaciones() {
@@ -62,6 +63,13 @@ public class ReservacionController {
     public ResponseEntity<ReservacionDto> create(@Valid @RequestBody ReservacionSaveDto saveDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(reservacionService.create(saveDto));
+    }
+
+    @PostMapping("/message")
+    public ResponseEntity<String> sendMessage(@RequestBody String message) {
+        reservacionService.sendMessage(message);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body("Mensaje enviado: "+ message);
     }
 
     @ApiResponse(responseCode = HttpStatusCodes.OK, description = "Habitacion actualizado")

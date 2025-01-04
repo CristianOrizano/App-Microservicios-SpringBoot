@@ -8,12 +8,15 @@ import com.hoteles.repository.HabitacionRepository;
 import com.hoteles.service.IHabitacionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@Log4j2
 @RequiredArgsConstructor
 @Service
 public class HabitacionServiceImpl implements IHabitacionService {
@@ -55,6 +58,15 @@ public class HabitacionServiceImpl implements IHabitacionService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Habitación no encontrada con id: " + id));
         habitacion.setDisponibilidad(!habitacion.getDisponibilidad());
         return habitacionMapper.toDto(habitacionRepository.save(habitacion));
+    }
+    @KafkaListener(topics = "str-topic", groupId = "test-group1")
+    public void consumeMessage1(String message) {
+        log.info("LISTENER1 ::: Recibiendo un mensaje {}",message);
+    }
+
+    @KafkaListener(topics = "str-topic", groupId = "test-group1")
+    public void consumeMessage2(String message) {
+        log.info("LISTENER2 ::: Recibiendo un mensaje: {}", message);
     }
 }
 

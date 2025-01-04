@@ -11,4 +11,7 @@ public interface IHabitacionService {
     HabitacionDto create(HabitacionSaveDto saveBody);
     HabitacionDto update(Long id, HabitacionSaveDto saveBody) ;
     HabitacionDto disable(Long id) ;
+    void consumeMessage1(String message) ;
+    void consumeMessage2(String message) ;
+
 }

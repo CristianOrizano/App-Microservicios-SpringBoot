@@ -11,4 +11,5 @@ public interface IReservacionService {
     ReservacionDto create(ReservacionSaveDto saveBody);
     ReservacionDto update(Long id, ReservacionSaveDto saveBody) ;
     ReservacionDto disable(Long id) ;
+    void sendMessage(String message) ;
 }

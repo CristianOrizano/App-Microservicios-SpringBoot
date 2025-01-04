@@ -5,8 +5,9 @@ import com.reservas.service.IHabitacionService;
 import com.reservas.shared.exeption.ResourceNotFoundException;
 import com.reservas.shared.exeption.ServiceUnavailableException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -15,10 +16,11 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+@Slf4j  // Lombok genera automáticamente el Logger
 @Service
 public class HabitacionService  implements IHabitacionService {
     private final WebClient webClient;
-    private static final Logger log = LoggerFactory.getLogger(HabitacionService.class);
+
     public HabitacionService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("lb://HOTELES").build();
     }
